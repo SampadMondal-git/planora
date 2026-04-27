@@ -1,0 +1,542 @@
+.plans-container {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding: 20px;
+  animation: FadeInUp 0.8s ease-in-out forwards;
+}
+
+.card {
+  width: 100%;
+  border-radius: 20px;
+  padding: 30px 20px;
+  backdrop-filter: blur(15px);
+}
+
+.title {
+  font-size: 3.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.input,
+.input[type="date"],
+.input[type="time"] {
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  font-size: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.input::placeholder {
+  color: #666;
+  opacity: 0.8;
+}
+
+.input:hover,
+.input[type="date"]:hover,
+.input[type="time"]:hover {
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.input:focus,
+.input[type="date"]:focus,
+.input[type="time"]:focus {
+  border-color: #ffd700;
+  outline: none;
+  box-shadow: 0 4px 25px rgba(255, 215, 0, 0.2);
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator,
+.input[type="time"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  padding: 8px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  opacity: 0.7;
+  filter: invert(0.8);
+  transition: all 0.2s ease;
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator:hover,
+.input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: invert(0.8) sepia(100%) saturate(500%) hue-rotate(0deg)
+    brightness(100%) contrast(100%);
+}
+
+::-webkit-datetime-edit {
+  padding: 0;
+  color: #333;
+}
+
+::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}
+
+::-webkit-datetime-edit-text {
+  padding: 0 4px;
+  color: #666;
+}
+
+::-webkit-datetime-edit-month-field,
+::-webkit-datetime-edit-day-field,
+::-webkit-datetime-edit-year-field,
+::-webkit-datetime-edit-hour-field,
+::-webkit-datetime-edit-minute-field {
+  padding: 0 4px;
+  color: #333;
+}
+
+::-webkit-datetime-edit-month-field:focus,
+::-webkit-datetime-edit-day-field:focus,
+::-webkit-datetime-edit-year-field:focus,
+::-webkit-datetime-edit-hour-field:focus,
+::-webkit-datetime-edit-minute-field:focus {
+  background-color: #ffd700;
+  color: #000;
+  outline: none;
+}
+
+.suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  color: black;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.suggestions::-webkit-scrollbar {
+  display: none;
+}
+
+.input:focus + .suggestions,
+.suggestions:hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(5px);
+}
+
+.suggestion-item {
+  padding: 12px 15px;
+  margin: 4px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  font-size: 0.95em;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 10px 10px;
+}
+
+.suggestion-item:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateX(5px);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.suggestion-item::before {
+  content: "🔍";
+  margin-right: 10px;
+  font-size: 0.9em;
+  opacity: 0.6;
+}
+
+.suggestions.active {
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.button.primary {
+  background-color: #ffd700;
+  color: black;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.button.primary:hover {
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.button.secondary {
+  background-color: #444;
+  color: white;
+}
+
+.button.secondary:hover {
+  background-color: #666;
+}
+
+.button.disabled {
+  background-color: #888;
+  color: #ddd;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.review {
+  text-align: left;
+  margin: 25px 0;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: reviewFadeIn 0.5s ease-out;
+}
+
+.review p {
+  margin: 12px 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-size: 0.95em;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.review p:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(5px);
+}
+
+.review p strong {
+  color: #ffd700;
+  margin-right: 10px;
+  min-width: 100px;
+}
+
+.review p:before {
+  margin-right: 12px;
+  font-size: 1.1em;
+}
+
+.review p:nth-child(1):before {
+  content: "📍";
+}
+
+.review p:nth-child(2):before {
+  content: "📅";
+}
+
+.review p:nth-child(3):before {
+  content: "⏰";
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(5px);
+  }
+}
+
+@keyframes calendarPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.input,
+.input[type="date"],
+.input[type="time"] {
+  animation: inputPop 0.3s ease-out;
+}
+
+@keyframes inputPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes FadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(250px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reviewFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .plans-container {
+    padding: 15px;
+    min-height: calc(100vh - 80px);
+  }
+
+  .card {
+    padding: 20px 15px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  .input,
+  .input[type="date"],
+  .input[type="time"] {
+    padding: 16px 20px;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .input:not([type="date"]):not([type="time"]) {
+    padding: 20px 24px;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .button {
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .review {
+    margin: 20px 0;
+    padding: 15px;
+  }
+
+  .review p {
+    padding: 8px 12px;
+    font-size: 0.9em;
+  }
+
+  .review p strong {
+    min-width: 80px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .plans-container {
+    padding: 10px;
+  }
+
+  .card {
+    padding: 15px 10px;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+
+  .input-container {
+    margin-bottom: 8px;
+  }
+
+  .input,
+  .input[type="date"],
+  .input[type="time"] {
+    padding: 14px 18px;
+    font-size: 16px;
+  }
+
+  .input:not([type="date"]):not([type="time"]) {
+    padding: 18px 22px;
+    font-size: 18px;
+  }
+
+  .suggestions {
+    max-height: 200px;
+  }
+
+  .suggestion-item {
+    padding: 10px 12px;
+    font-size: 0.9em;
+  }
+
+  .button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .review p {
+    font-size: 0.85em;
+    padding: 8px 10px;
+  }
+
+  .review p strong {
+    min-width: 70px;
+  }
+
+  .review p:before {
+    font-size: 1em;
+    margin-right: 8px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .card {
+    padding: 12px 8px;
+  }
+
+  .input,
+  .input[type="date"],
+  .input[type="time"] {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .input:not([type="date"]):not([type="time"]) {
+    padding: 16px 20px;
+    font-size: 16px;
+  }
+
+  .review {
+    padding: 12px;
+  }
+
+  .review p {
+    font-size: 0.8em;
+    padding: 6px 8px;
+  }
+}
+
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .plans-container {
+    padding: 10px;
+    min-height: calc(100vh - 60px);
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 5px;
+  }
+
+  .subtitle {
+    margin-bottom: 10px;
+  }
+
+  .input-container {
+    margin-bottom: 6px;
+  }
+
+  .button-group {
+    margin-top: 10px;
+  }
+
+  .review {
+    margin: 15px 0;
+  }
+}

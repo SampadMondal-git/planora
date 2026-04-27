@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://planora-2025.vercel.app/sitemap.xml
